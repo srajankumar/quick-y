@@ -80,6 +80,7 @@ export default function Register() {
           className="mt-1"
           id="username"
           type="text"
+          required
           value={username}
           onChange={(event) => setUsername(event.target.value)}
           placeholder="srajan"
@@ -92,6 +93,7 @@ export default function Register() {
           id="phone"
           type="number"
           value={phone}
+          required
           onChange={(event) => setPhone(event.target.value)}
           placeholder="6665554444"
         />
@@ -102,6 +104,7 @@ export default function Register() {
           className="mt-1"
           id="password"
           type="password"
+          required
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="A Strong Password"
