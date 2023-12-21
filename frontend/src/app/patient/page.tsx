@@ -49,8 +49,8 @@ const Scan = () => {
     <div>
       <form className="py-12 px-10">
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-2xl font-bold leading-7 text-gray-900">
+          <div className="pb-2">
+            <h2 className="text-3xl font-bold leading-7 text-gray-900">
               Book an Appointment
             </h2>
             <div className="mt-10 grid gap-x-6 gap-y-8 grid-cols-6">
@@ -65,7 +65,6 @@ const Scan = () => {
                   <Input type="text" />
                 </div>
               </div>
-
               <div className="col-span-full">
                 <label
                   htmlFor="disease"
