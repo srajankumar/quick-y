@@ -48,7 +48,7 @@ const patient = () => {
 
   return (
     <div>
-      <form className="py-12 px-10">
+      <form>
         <div className="space-y-12">
           <div className="pb-2">
             <h2 className="text-3xl font-bold leading-7 text-gray-900">

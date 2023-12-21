@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <div className="flex justify-center my-20 items-center">
+        <div className="flex justify-center items-center">
           <div className="max-w-6xl">{children}</div>
         </div>
       </body>

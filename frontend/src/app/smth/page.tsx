@@ -3,7 +3,7 @@ import PatientPage from "@/components/pages/patient";
 import DoctorPage from "@/components/pages/doctor";
 const page = () => {
   return (
-    <div>
+    <div className="my-40">
       <PatientPage />
       {/* <DoctorPage /> */}
     </div>

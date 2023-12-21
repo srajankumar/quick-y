@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const ShuffleHero: React.FC = () => {
   return (
-    <section className="w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
+    <section className="w-full min-h-screen px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
       <div>
         <span className="block mb-4 text-lg font-bold text-primary">
           Quick-y
@@ -29,7 +29,7 @@ const ShuffleHero: React.FC = () => {
             <EncryptButton />
           </div>
           <Link
-            href="/patient"
+            href="/login"
             className="tracking-wider hover:scale-105 transition-all duration-300 h-fit rounded-lg border-[1px] hover:border-black bg-primary px-4 py-2 font-mono font-medium uppercase text-white hover:bg-black hover:text-gray-300"
           >
             Book an Appointment
