@@ -4,8 +4,8 @@ import DoctorPage from "@/components/pages/doctor";
 const page = () => {
   return (
     <div>
-      {/* <PatientPage /> */}
-      <DoctorPage />
+      <PatientPage />
+      {/* <DoctorPage /> */}
     </div>
   );
 };

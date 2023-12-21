@@ -26,7 +26,7 @@ export default function Login() {
       setCookies("user_role", response.data.role); // Store the user's role in cookies
       window.localStorage.setItem("userID", response.data.userID);
 
-      window.location.href = "/admin/dashboard";
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
     }
