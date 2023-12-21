@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -40,7 +41,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const Scan = () => {
+const patient = () => {
   const [date, setDate] = React.useState<Date>();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -168,12 +169,17 @@ const Scan = () => {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        {/* <div className="mt-6 flex items-center justify-end gap-x-6">
           <Button className="px-5">Submit</Button>
+        </div> */}
+        <div className="mt-6 flex items-center justify-end gap-x-6">
+          <Link href="/waiting">
+            <Button className="px-5">Submit</Button>
+          </Link>
         </div>
       </form>
     </div>
   );
 };
 
-export default Scan;
+export default patient;
