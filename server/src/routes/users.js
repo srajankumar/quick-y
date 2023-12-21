@@ -59,12 +59,13 @@ router.post("/login", async (req, res) => {
         .json({ message: "Username or password is incorrect!" });
     }
 
-    // If the password is valid, create a JWT token and include the user's role in the response
+    // If the password is valid, create a JWT token and include both user ID and role in the response
     const token = jwt.sign(
-      { id: user._id },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET || "defaultSecret"
     );
-    res.json({ token, role: user.role });
+
+    res.json({ token, userID: user._id, role: user.role });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal Server Error" });
