@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { userRouter } from "./routes/users.js";
 import { appointmentRouter } from "./routes/appointment.js";
+import { prescriptionRouter } from "./routes/prescription.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use("/auth", userRouter); // Authentication-related routes
 app.use("/appointment", appointmentRouter); // Authentication-related routes
+app.use("/prescription", prescriptionRouter); // Authentication-related routes
 
 // Connect to MongoDB using the provided URI
 mongoose.connect(process.env.MONGO_URI, {
