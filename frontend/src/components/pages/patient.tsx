@@ -85,7 +85,7 @@ const patient = () => {
                   Age
                 </label>
                 <div className="mt-2">
-                  <Input type="text" />
+                  <Input type="number" />
                 </div>
               </div>
               <div className="col-span-3 ">
