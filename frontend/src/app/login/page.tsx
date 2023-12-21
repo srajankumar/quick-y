@@ -46,6 +46,7 @@ export default function Login() {
           className="mt-1"
           id="username"
           type="text"
+          required
           value={username}
           onChange={(event) => setUsername(event.target.value)}
           placeholder="srajan"
@@ -57,6 +58,7 @@ export default function Login() {
           className="mt-1"
           id="password"
           type="password"
+          required
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="Your Password"
