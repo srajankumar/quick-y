@@ -1,9 +1,11 @@
 "use client";
 
+import Logout from "@/components/Logout";
 import Route from "@/components/Route";
 const Waiting = () => {
   return (
-    <div className="py-14">
+    <div>
+      <Logout />
       <Route userName="Srajan" />
     </div>
   );

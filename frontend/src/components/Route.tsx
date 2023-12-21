@@ -18,67 +18,25 @@ type RouteCoordinates = {
 };
 
 const routeCoordinates: RouteCoordinates = {
-  "1": {
+  "Clinic 1": {
     fromLatitude: 12.8625882,
     fromLongitude: 74.8366402,
     toLatitude: 12.9415206,
     toLongitude: 74.854157,
   },
 
-  "7": {
+  "Clinic 2": {
     fromLatitude: 12.8625882,
     fromLongitude: 74.8366402,
     toLatitude: 12.8994669,
     toLongitude: 74.8361301,
   },
 
-  "13": {
+  "Clinic 3": {
     fromLatitude: 12.8625882,
     fromLongitude: 74.8366402,
     toLatitude: 12.9029797,
     toLongitude: 74.8357253,
-  },
-
-  "1B": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.9053247,
-    toLongitude: 74.8298392,
-  },
-
-  "31": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.9001671,
-    toLongitude: 74.8258711,
-  },
-
-  "31A": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.9016396,
-    toLongitude: 74.8249463,
-  },
-
-  "31B": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.9025985,
-    toLongitude: 74.8233775,
-  },
-
-  "16": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.8893086,
-    toLongitude: 74.8216279,
-  },
-
-  "16A": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.8893086,
-    toLongitude: 74.8216279,
   },
 };
 
@@ -141,7 +99,7 @@ export default function RouteMap({ userName }: RouteMapProps) {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-center ">
       {/* <div>
         <select
           className="border border-input text-xs md:text-base bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 mb-5 mt-2"
@@ -155,9 +113,9 @@ export default function RouteMap({ userName }: RouteMapProps) {
           ))}
         </select>
       </div> */}
-
-      <div className="cursor-pointer text-lg rounded-md hover:text-primary text-gray-600 font-semibold transition-all duration-300 hover:shadow-xl py-3 rounded-t-md tracking-wide mt-5">
-        Srajan Kumar
+      <div className="flex justify-between cursor-default text-2xl font-semibold py-3 rounded-t-md tracking-wide mt-5">
+        <div>Srajan Kumar</div>
+        <div>Shreya Clinic</div>
       </div>
 
       {routeInformation && (
@@ -169,12 +127,8 @@ export default function RouteMap({ userName }: RouteMapProps) {
         />
       )}
 
-      <div className="cursor-pointer text-lg px-10 rounded-md hover:text-primary text-gray-600 font-semibold transition-all duration-300 hover:shadow-xl py-3 rounded-t-md tracking-wide mt-5">
-        Waiting time: <span>10:00 mins</span>
-      </div>
-
-      <div className="cursor-pointer text-lg px-10 rounded-md hover:text-primary text-gray-600 font-semibold transition-all duration-300 hover:shadow-xl py-3 rounded-t-md tracking-wide mt-5">
-        Disease: <span>Disease1</span>
+      <div className="cursor-default text-lg font-semibold tracking-wide py-3">
+        <p>Waiting Time: 05:00 pm</p>
       </div>
     </div>
   );

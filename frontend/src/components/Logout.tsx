@@ -23,7 +23,7 @@ const Logout = () => {
   };
 
   return (
-    <div className="fixed top-5 right-5">
+    <div className="fixed top-2.5 right-5">
       <Button variant="destructive" onClick={handleLogout} className="mt-3">
         Logout
       </Button>
