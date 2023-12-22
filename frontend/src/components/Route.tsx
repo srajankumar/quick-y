@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-
 const GoogleMap = dynamic(() => import("@/components/MapRoute"), {
   ssr: false,
 });
@@ -24,14 +22,12 @@ const routeCoordinates: RouteCoordinates = {
     toLatitude: 12.9415206,
     toLongitude: 74.854157,
   },
-
   "Clinic 2": {
     fromLatitude: 12.8625882,
     fromLongitude: 74.8366402,
     toLatitude: 12.8994669,
     toLongitude: 74.8361301,
   },
-
   "Clinic 3": {
     fromLatitude: 12.8625882,
     fromLongitude: 74.8366402,
@@ -40,90 +36,75 @@ const routeCoordinates: RouteCoordinates = {
   },
 };
 
+interface Appointment {
+  _id: string;
+  name: string;
+  disease: string;
+  age: string;
+  clinic: string;
+  userOwner: string;
+  __v: number;
+}
+
 interface RouteMapProps {
   userName: string;
 }
 
 export default function RouteMap({ userName }: RouteMapProps) {
-  const [routeIDs, setRouteIDs] = useState<string[]>([]);
-  const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const fetchDriverRoutes = async () => {
-  //     try {
-  //       const driverResponse = await axios.get(
-  //         `${serverUrl}/driver/info?name=${userName}`
-  //       );
-
-  //       if (driverResponse.data.length === 0) {
-  //         console.log("Driver not found");
-  //         return;
-  //       }
-
-  //       const matchingDrivers = driverResponse.data.filter(
-  //         (driver: { name: string }) => driver.name === userName
-  //       );
-
-  //       if (matchingDrivers.length === 0) {
-  //         console.log("Driver not found");
-  //         return;
-  //       }
-
-  //       const driverRouteIDs = matchingDrivers.map(
-  //         (driver: { routeID: string }) => driver.routeID
-  //       );
-
-  //       setRouteIDs(driverRouteIDs);
-  //       setSelectedRoute(driverRouteIDs[0]); // Set the default selection to the first route ID
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   fetchDriverRoutes();
-  // }, [userName]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<Appointment | null>(null);
 
   useEffect(() => {
-    // Remove the server-related code since we are hardcoding the routes
-    const hardcodedRoutes = Object.keys(routeCoordinates);
-    setRouteIDs(hardcodedRoutes);
-    setSelectedRoute(hardcodedRoutes[0]); // Set the default selection to the first route ID
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/appointment`);
+        setAppointments(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
-  const routeInformation = selectedRoute
-    ? routeCoordinates[selectedRoute]
-    : null;
-
-  const handleRouteSelect = (selectedRoute: string) => {
-    setSelectedRoute(selectedRoute);
+  const handleAppointmentSelect = (selectedId: string) => {
+    const selected = appointments.find(
+      (appointment) => appointment._id === selectedId
+    );
+    setSelectedAppointment(selected || null);
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-center ">
-      {/* <div>
+      <div>
         <select
           className="border border-input text-xs md:text-base bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 mb-5 mt-2"
-          onChange={(e) => handleRouteSelect(e.target.value)}
-          value={selectedRoute || ""}
+          onChange={(e) => handleAppointmentSelect(e.target.value)}
+          value={selectedAppointment?._id || ""}
         >
-          {routeIDs.map((routeID) => (
-            <option key={routeID} value={routeID}>
-              {routeID}
+          {appointments.map((appointment) => (
+            <option key={appointment._id} value={appointment._id}>
+              {appointment.name} - {appointment.clinic}
             </option>
           ))}
         </select>
-      </div> */}
+      </div>
       <div className="flex justify-between cursor-default text-2xl font-semibold py-3 rounded-t-md tracking-wide mt-5">
-        <div>Srajan Kumar</div>
-        <div>Shreya Clinic</div>
+        <div>{selectedAppointment?.name}</div>
+        <div>{selectedAppointment?.clinic}</div>
       </div>
 
-      {routeInformation && (
+      {selectedAppointment && (
         <GoogleMap
-          fromLatitude={routeInformation.fromLatitude}
-          fromLongitude={routeInformation.fromLongitude}
-          toLatitude={routeInformation.toLatitude}
-          toLongitude={routeInformation.toLongitude}
+          fromLatitude={
+            routeCoordinates[selectedAppointment.clinic].fromLatitude
+          }
+          fromLongitude={
+            routeCoordinates[selectedAppointment.clinic].fromLongitude
+          }
+          toLatitude={routeCoordinates[selectedAppointment.clinic].toLatitude}
+          toLongitude={routeCoordinates[selectedAppointment.clinic].toLongitude}
         />
       )}
 

@@ -5,7 +5,7 @@ import PatientPage from "@/components/pages/patient";
 import DoctorPage from "@/components/pages/doctor";
 import { useCookies } from "react-cookie";
 import Logout from "@/components/Logout";
-import PrescriptionList from "@/components/pages/pharmasist";
+import PrescriptionList from "@/components/pages/pharmacist";
 
 const Page = () => {
   const [cookies, setCookies] = useCookies(["user_role"]);

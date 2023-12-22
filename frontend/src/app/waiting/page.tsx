@@ -6,7 +6,7 @@ const Waiting = () => {
   return (
     <div>
       <Logout />
-      <Route userName="Srajan" />
+      <Route userName="srajan" />
     </div>
   );
 };
