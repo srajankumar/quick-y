@@ -5,6 +5,7 @@ import PatientPage from "@/components/pages/patient";
 import DoctorPage from "@/components/pages/doctor";
 import { useCookies } from "react-cookie";
 import Logout from "@/components/Logout";
+import PrescriptionList from "@/components/pages/pharmasist";
 
 const Page = () => {
   const [cookies, setCookies] = useCookies(["user_role"]);
@@ -20,6 +21,7 @@ const Page = () => {
     <div className="my-40">
       {role === "Patient" && <PatientPage />}
       {role === "Doctor" && <DoctorPage />}
+      {role === "Pharmacist" && <PrescriptionList />}
       <Logout />
       {/* Add other role-based conditions as needed */}
     </div>

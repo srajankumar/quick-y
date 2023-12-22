@@ -62,8 +62,13 @@ export default function Register() {
       });
       alert("Registration Completed! Login to continue");
       window.location.href = "/login";
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      if (err.response && err.response.status === 409) {
+        // User with the same name already exists, show a popup or handle accordingly
+        alert("Username already exists. Please choose a different username.");
+      } else {
+        console.error(err);
+      }
     }
   };
 
