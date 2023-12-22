@@ -19,7 +19,7 @@ router.post("/prescribe", async (req, res) => {
   try {
     console.log("Request Payload:", req.body);
 
-    const { waitingTime, prescription } = req.body;
+    const { waitingTime, prescription, userOwner, timestamps } = req.body;
 
     // Fetch the user's role from the "users" collection
     const user = await UserModel.findById(userOwner);
