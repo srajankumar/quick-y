@@ -113,7 +113,7 @@ export default function RouteMap({ userID }: RouteMapProps) {
       )}
 
       <div className="cursor-default text-lg font-semibold tracking-wide py-3">
-        <p>Waiting Time: 05:00 pm</p>
+        <p>Waiting Time: 05:00 mins</p>
       </div>
     </div>
   );

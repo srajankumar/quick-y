@@ -75,11 +75,7 @@ const PrescriptionList: React.FC = () => {
                 {prescription._id}
               </td>
               <td className="border-r-2 pl-5 pr-10 py-10">
-                {prescription.prescription} Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Illum nostrum non laboriosam quam
-                debitis recusandae quasi accusantium voluptatem, enim aliquam
-                reprehenderit deserunt dolor, sapiente exercitationem,
-                repellendus ab autem alias ipsam ipsa. Repellat!
+                {prescription.prescription}
               </td>
               <td className="border-r-2 pl-5 pr-10 py-10">
                 {prescription.waitingtime} minutes

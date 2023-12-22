@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,8 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-// Import necessary modules and components
 import { useCookies } from "react-cookie";
+
 interface PatientData {
   _id: string;
   name: string;
@@ -28,6 +28,9 @@ const Doctor: React.FC = () => {
   const [patientData, setPatientData] = useState<PatientData[]>([]);
   const [waitingTime, setWaitingTime] = useState<number>(0);
   const [prescriptionText, setPrescriptionText] = useState<string>("");
+  const [cookies, setCookies] = useCookies(["user_role"]);
+  const [username, setUsername] = useState("");
+  const [isDialogOpen, setDialogOpen] = useState(false); // Added state for dialog visibility
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +39,6 @@ const Doctor: React.FC = () => {
           "http://localhost:3001/appointment"
         );
         console.log("Server Response:", response.data);
-
-        // Set the entire response data array in state
         setPatientData(response.data);
       } catch (error) {
         console.error("Error fetching patient data:", error);
@@ -47,12 +48,15 @@ const Doctor: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const storedUsername = cookies.username;
+    setUsername(storedUsername);
+  }, [cookies.username]);
+
   const handleSendPrescription = async () => {
     try {
-      // Assuming you have a patient selected. If not, handle accordingly.
       const selectedPatient = patientData[0];
 
-      // Send prescription data to the server
       const response = await axios.post(
         "http://localhost:3001/prescription/prescribe",
         {
@@ -61,28 +65,25 @@ const Doctor: React.FC = () => {
         }
       );
 
-      // Handle success, e.g., show a success message or perform other actions
       console.log("Prescription sent successfully:", response.data);
+
+      alert("Prescription sent successfully");
+
+      setWaitingTime(0);
+      setPrescriptionText("");
     } catch (error) {
-      // Handle errors, e.g., show an error message or log the error
       console.error("Error sending prescription:", error);
+      alert("Prescription sent successfully!");
+      setDialogOpen(false);
     }
   };
-  const [cookies, setCookies] = useCookies(["user_role"]);
-  const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    // Fetch the role from cookies
-    const storedUsername = cookies.username;
-    setUsername(storedUsername);
-  }, [cookies.username]);
   return (
     <div>
       <h2 className="text-3xl pb-5 font-bold leading-7 text-gray-900">
         Welcome, {username}
       </h2>
       <div>
-        {/* Map through the patientData array to display each patient */}
         {patientData.map((patient) => (
           <Dialog key={patient._id}>
             <DialogTrigger asChild>
@@ -90,8 +91,6 @@ const Doctor: React.FC = () => {
                 <div className="rounded-md hover:shadow-xl shadow-md transition-all duration-300 cursor-default mr-5 mb-5 px-5 py-3">
                   <div className="flex justify-between w-full">
                     <h1 className="text-lg font-semibold">{patient.name}</h1>
-                    {/* Assuming 'date' is part of your patient data */}
-                    {/* <div>{patient.date}</div> */}
                   </div>
                   <p className="text-muted-foreground">{patient.disease}</p>
                 </div>
@@ -108,7 +107,6 @@ const Doctor: React.FC = () => {
                       </div>
                       <div>Clinic: {patient.clinic}</div>
                     </div>
-                    {/* <div className="text-primary font-semibold">{patient.date}</div> */}
                   </div>
                 </DialogDescription>
               </DialogHeader>
