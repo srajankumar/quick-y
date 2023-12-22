@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 // Import necessary modules and components
-
+import { useCookies } from "react-cookie";
 interface PatientData {
   _id: string;
   name: string;
@@ -68,11 +68,18 @@ const Doctor: React.FC = () => {
       console.error("Error sending prescription:", error);
     }
   };
+  const [cookies, setCookies] = useCookies(["user_role"]);
+  const [username, setUsername] = useState("");
 
+  useEffect(() => {
+    // Fetch the role from cookies
+    const storedUsername = cookies.username;
+    setUsername(storedUsername);
+  }, [cookies.username]);
   return (
     <div>
       <h2 className="text-3xl pb-5 font-bold leading-7 text-gray-900">
-        Welcome, {patientData.length > 0 ? patientData[0].name : ""}
+        Welcome, {username}
       </h2>
       <div>
         {/* Map through the patientData array to display each patient */}

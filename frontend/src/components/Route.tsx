@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import Cookies from "js-cookie";
 
 const GoogleMap = dynamic(() => import("@/components/MapRoute"), {
   ssr: false,
@@ -47,10 +48,10 @@ interface Appointment {
 }
 
 interface RouteMapProps {
-  userName: string;
+  userID: string;
 }
 
-export default function RouteMap({ userName }: RouteMapProps) {
+export default function RouteMap({ userID }: RouteMapProps) {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
@@ -58,7 +59,10 @@ export default function RouteMap({ userName }: RouteMapProps) {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/appointment`);
+        // Fetch appointments based on the logged-in userID
+        const response = await axios.get(
+          `http://localhost:3001/appointment?userOwner=${userID}`
+        );
         setAppointments(response.data);
       } catch (err) {
         console.error(err);
@@ -66,7 +70,7 @@ export default function RouteMap({ userName }: RouteMapProps) {
     };
 
     fetchAppointments();
-  }, []);
+  }, [userID]);
 
   const handleAppointmentSelect = (selectedId: string) => {
     const selected = appointments.find(
