@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
 router.post("/prescribe", async (req, res) => {
   try {
-    const { waitingtime, prescription, userOwner } = req.body;
+    const { waitingtime, prescription, userOwner, timestamps } = req.body;
 
     // Fetch the user's role from the "users" collection
     const user = await UserModel.findById(userOwner);
@@ -31,6 +31,7 @@ router.post("/prescribe", async (req, res) => {
       waitingtime,
       prescription,
       userOwner,
+      timestamps,
       userRole: user.role, // Assuming the user model has a "role" field
     });
 
