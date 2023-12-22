@@ -56,7 +56,6 @@ const Doctor: React.FC = () => {
       const response = await axios.post(
         "http://localhost:3001/prescription/prescribe",
         {
-          patientId: selectedPatient._id,
           waitingTime: waitingTime,
           prescriptionText: prescriptionText,
         }
