@@ -55,30 +55,58 @@ const Doctor: React.FC = () => {
     setUsername(storedUsername);
   }, [cookies.username]);
 
-  const handleSendPrescription = async () => {
+  const handleSendPrescription = async (patient: PatientData) => {
     try {
-      const response = await axios.post(
+      // Send prescription
+      const prescriptionResponse = await axios.post(
         "http://localhost:3001/prescription/prescribe",
         {
-          waitingtime: waitingTime, // Correct property name
+          waitingtime: waitingTime,
           prescription: prescriptionText,
-          userOwner: userid, // Make sure this property is correctly retrieved from your data
+          userOwner: userid,
+          sent: true,
         }
       );
 
-      console.log("Prescription sent successfully:", response.data);
-      sendSMS(
-        "Your Prescription/Appointment has been updated. Please check Quick-y for more information"
+      console.log("Prescription sent successfully:", prescriptionResponse.data);
+
+      // Update appointment
+      const appointmentResponse = await axios.post(
+        "http://localhost:3001/appointment/update-appointment",
+        {
+          _id: patient._id, // Assuming this is the appointment ID
+          sent: true, // Add the sent attribute
+        }
       );
+
+      console.log(
+        "Appointment updated successfully:",
+        appointmentResponse.data
+      );
+
       alert("Prescription sent successfully");
 
       setWaitingTime("");
       setPrescriptionText("");
     } catch (error) {
-      console.error("Error sending prescription:", error);
-      alert("Prescription sent successfully!");
-      setDialogOpen(false);
+      console.error(
+        "Error sending prescription or updating appointment:",
+        error
+      );
+
+      // if (error.response) {
+      //   console.error("Server responded with:", error.response.data);
+      // }
+
+      alert("Error sending prescription. Please try again.");
     }
+  };
+
+  const handleSendPrescriptionWrapper = (patient: PatientData) => {
+    return async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      await handleSendPrescription(patient);
+    };
   };
 
   return (
@@ -90,7 +118,7 @@ const Doctor: React.FC = () => {
         {patientData.map((patient) => (
           <Dialog key={patient._id}>
             <DialogTrigger asChild>
-              <div className="w-[50rem]">
+              <div className="max-w-7xl w-full">
                 <div className="rounded-md hover:shadow-xl shadow-md transition-all duration-300 cursor-default mr-5 mb-5 px-5 py-3">
                   <div className="flex justify-between w-full">
                     <h1 className="text-lg font-semibold">{patient.name}</h1>
@@ -130,7 +158,7 @@ const Doctor: React.FC = () => {
                   Swap patient / doctor
                 </Button>
                 <Button
-                  onClick={handleSendPrescription}
+                  onClick={handleSendPrescriptionWrapper(patient)}
                   className="flex w-full"
                   type="submit"
                 >

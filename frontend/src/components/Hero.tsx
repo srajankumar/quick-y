@@ -1,7 +1,9 @@
 "use client";
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import EncryptButton from "@/components/Scan";
+
 interface Square {
   id: number;
   src: string;
@@ -10,23 +12,58 @@ import Link from "next/link";
 import Login from "./Login";
 
 const ShuffleHero: React.FC = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref) as boolean;
+
+  const FADE_DOWN_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, y: -10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" } },
+  };
+
+  const FADE_UP_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, y: +10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" } },
+  };
   return (
     <section className="w-full min-h-screen px-5 py-12 grid lg:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
-      <div>
+      <motion.div
+        initial="hidden"
+        className="max-w-2xl"
+        ref={ref}
+        animate={isInView ? "show" : "hidden"}
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.15,
+            },
+          },
+        }}
+      >
         <Login />
-        <span className="block mb-4 text-lg font-bold text-primary">
+        <motion.h1
+          className="block mb-4 text-lg font-bold text-primary"
+          variants={FADE_DOWN_ANIMATION_VARIANTS}
+        >
           Quick-y
-        </span>
-        <h3 className="text-4xl md:text-5xl font-semibold">
+        </motion.h1>
+        <motion.h1
+          className="text-4xl md:text-5xl font-semibold"
+          variants={FADE_DOWN_ANIMATION_VARIANTS}
+        >
           Time-Efficient Healthcare
-        </h3>
+        </motion.h1>
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
           Revolutionizing healthcare with real-time mapping, streamlined
           prescriptions, and skin/normal disease detection, minimizing wait
           times for patients and doctors.
         </p>
 
-        <div className="flex flex-wrap">
+        <motion.h1
+          className="flex flex-wrap"
+          variants={FADE_UP_ANIMATION_VARIANTS}
+        >
           <div className="mr-3 mb-3">
             <EncryptButton />
           </div>
@@ -36,8 +73,8 @@ const ShuffleHero: React.FC = () => {
           >
             Book an Appointment
           </Link>
-        </div>
-      </div>
+        </motion.h1>
+      </motion.div>
       <div className="lg:grid hidden">
         <ShuffleGrid />
       </div>

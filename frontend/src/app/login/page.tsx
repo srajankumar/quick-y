@@ -31,6 +31,7 @@ export default function Login() {
       setCookies("access_token", response.data.token);
       setCookies("user_role", response.data.role); // Store the user's role in cookies
       window.localStorage.setItem("userID", response.data.userID);
+      window.localStorage.setItem("username", username);
       toast({
         title: "Login Successful",
         variant: "success",

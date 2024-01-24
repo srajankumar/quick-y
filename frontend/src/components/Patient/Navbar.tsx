@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const Logout = () => {
+const Navbar = () => {
   const [cookies, setCookies, removeCookie] = useCookies([
     "user_role",
     "access_token",
@@ -29,14 +30,25 @@ const Logout = () => {
     // Redirect to "/"
     window.location.href = "/";
   };
-
   return (
-    <div className="fixed top-2.5 right-5">
-      {/* <Button variant="destructive" onClick={handleLogout} className="mt-3">
-        Logout
-      </Button> */}
+    <div className="fixed bg-white/50 backdrop-blur-md top-0 p-5 w-full flex justify-center left-0">
+      <div className="flex max-w-6xl w-full justify-between items-center">
+        <Link
+          href="/dashboard"
+          className="text-xl font-bold text-primary hover:scale-105 transition-all duration-200"
+        >
+          Quick-y
+        </Link>
+        <Button
+          variant="destructive"
+          className="hover:scale-105 transition-all duration-200"
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };
 
-export default Logout;
+export default Navbar;
