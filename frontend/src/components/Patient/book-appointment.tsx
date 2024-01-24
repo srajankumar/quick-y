@@ -8,6 +8,8 @@ import { userID } from "../hooks/page";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { Textarea } from "../ui/textarea";
+import CalendarDateRangePicker from "../ui/date-range-picker";
+import { DateRange } from "react-day-picker";
 
 const Patient = () => {
   const { toast } = useToast();
@@ -16,6 +18,9 @@ const Patient = () => {
   const [disease, setDisease] = React.useState("");
   const [age, setAge] = React.useState<string>("");
   const [clinic, setClinic] = React.useState("");
+  const [selectedDateRange, setSelectedDateRange] = React.useState<
+    DateRange | undefined
+  >();
   const userId = userID();
 
   const clinics = [
@@ -46,6 +51,8 @@ const Patient = () => {
           age,
           clinic,
           userOwner: userId,
+          fromDate: selectedDateRange?.from,
+          toDate: selectedDateRange?.to,
         }
       );
       toast({
@@ -56,6 +63,7 @@ const Patient = () => {
       setDisease("");
       setAge("");
       setClinic("");
+      setSelectedDateRange(undefined); // Reset the date range
       setIsLoading(false);
       // setTimeout(() => {
       //   window.location.href = "/waiting";
@@ -152,6 +160,21 @@ const Patient = () => {
                       </option>
                     ))}
                   </select>
+                </div>
+              </div>
+              <div className="col-span-full">
+                <label
+                  htmlFor="date"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Date
+                </label>
+                <div className="mt-2">
+                  <CalendarDateRangePicker
+                    // Pass the selected date range to the CalendarDateRangePicker component
+                    date={selectedDateRange}
+                    onDateChange={setSelectedDateRange}
+                  />
                 </div>
               </div>
             </div>

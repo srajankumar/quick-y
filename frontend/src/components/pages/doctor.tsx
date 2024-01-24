@@ -20,20 +20,26 @@ interface PatientData {
   disease: string;
   age: string;
   clinic: string;
+  fromDate: string;
+  toDate: string;
   userOwner: string;
   __v: number;
 }
+import { useToast } from "@/components/ui/use-toast";
 
 import { motion, useInView } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Doctor: React.FC = () => {
+  const { toast } = useToast();
   const [patientData, setPatientData] = useState<PatientData[]>([]);
   const [waitingTime, setWaitingTime] = useState<string>("");
   const [prescriptionText, setPrescriptionText] = useState<string>("");
   const [cookies, setCookies] = useCookies(["user_role", "username"]);
   const [username, setUsername] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false); // Added state for dialog visibility
+  const [selectedPrescriptionDate, setSelectedPrescriptionDate] =
+    useState<string>("");
   const userid = userID();
 
   useEffect(() => {
@@ -59,22 +65,31 @@ const Doctor: React.FC = () => {
 
   const handleSendPrescription = async (patient: PatientData) => {
     try {
-      // Send prescription
+      // Send prescription with selected date
       const prescriptionResponse = await axios.post(
         "http://localhost:3001/prescription/prescribe",
         {
           waitingtime: waitingTime,
           prescription: prescriptionText,
+          date: selectedPrescriptionDate, // Include the selected date
           userOwner: userid,
           sent: true,
         }
       );
 
-      console.log("Prescription sent successfully:", prescriptionResponse.data);
+      toast({
+        title: "Prescription sent successfully",
+        variant: "success",
+      });
 
       setWaitingTime("");
       setPrescriptionText("");
+      setSelectedPrescriptionDate(""); // Reset selected date
     } catch (error) {
+      toast({
+        title: "Error sending prescription or updating appointment",
+        variant: "destructive",
+      });
       console.error(
         "Error sending prescription or updating appointment:",
         error
@@ -103,6 +118,23 @@ const Doctor: React.FC = () => {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
 
+  const formatDateString = (dateString: string) => {
+    const dateObject = new Date(dateString);
+
+    const formattedDate = dateObject.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
+    const formattedTime = dateObject.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+
+    return `${formattedDate} ${formattedTime}`;
+  };
+
   return (
     <div>
       <div>
@@ -125,7 +157,7 @@ const Doctor: React.FC = () => {
                 Book an Appointment
               </TabsTrigger>
             </TabsList> */}
-            <h1 className="text-lg border w-fit px-5 bg-black/25 hover:bg-black/30 cursor-pointer transition-colors duration-200 py-1 rounded-full">
+            <h1 className="text-lg border-2 w-fit px-5 bg-black/5 hover:bg-black/10 cursor-pointer transition-colors duration-200 py-1 rounded-full">
               Appointments
             </h1>
             <TabsContent value="appointments">
@@ -133,15 +165,19 @@ const Doctor: React.FC = () => {
                 {patientData.map((patient) => (
                   <Dialog key={patient._id}>
                     <DialogTrigger asChild>
-                      <div className="bg-green-100 rounded-xl p-5 hover:shadow-lg transition-colors duration-200 cursor-pointer">
-                        <div className="flex justify-between w-full">
-                          <h1 className="text-lg font-semibold">
-                            {patient.name}
-                          </h1>
+                      <div className="flex justify-between items-center bg-green-100 rounded-xl p-5 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                        <div>
+                          <div className="flex justify-between w-full">
+                            <h1 className="text-lg font-semibold">
+                              {patient.name}
+                            </h1>
+                          </div>
+                          <p className="text-muted-foreground">
+                            {patient.disease}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground">
-                          {patient.disease}
-                        </p>
+                        <div>{formatDateString(patient.fromDate)}</div>
+                        <div>{formatDateString(patient.toDate)}</div>
                       </div>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
@@ -171,6 +207,18 @@ const Doctor: React.FC = () => {
                         placeholder="Add prescription"
                         value={prescriptionText}
                         onChange={(e) => setPrescriptionText(e.target.value)}
+                      />
+                      <label className="block text-sm font-medium text-gray-700">
+                        Select Prescription Date:
+                      </label>
+
+                      <input
+                        type="datetime-local"
+                        value={selectedPrescriptionDate}
+                        onChange={(e) =>
+                          setSelectedPrescriptionDate(e.target.value)
+                        }
+                        className="mt-1 p-2 border rounded-md w-full"
                       />
                       <div className="flex space-x-4">
                         {/* <Button disabled className="flex w-full" type="submit">

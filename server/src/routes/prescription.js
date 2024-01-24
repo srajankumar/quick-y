@@ -22,7 +22,7 @@ router.post("/prescribe", async (req, res) => {
   try {
     console.log("Request Payload:", req.body);
 
-    const { waitingtime, prescription, userOwner } = req.body;
+    const { waitingtime, prescription, date, userOwner } = req.body;
 
     // Fetch the user's information from the "users" collection
     const user = await UserModel.findById(userOwner);
@@ -35,6 +35,7 @@ router.post("/prescribe", async (req, res) => {
     const appointment = new PrescriptionModel({
       waitingtime,
       prescription,
+      date,
       userOwner: user._id,
       // Assuming the user model has a "role" field
     });

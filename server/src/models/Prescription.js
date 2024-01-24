@@ -16,6 +16,9 @@ const PrescriptionSchema = new mongoose.Schema(
       type: String,
       required: [true, "Prescription text is required"],
     },
+    date: {
+      type: String,
+    },
     userOwner: userReference,
   },
   {

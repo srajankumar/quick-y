@@ -16,6 +16,7 @@ interface Prescription {
   userOwner: string;
   createdAt: string;
   updatedAt: string;
+  date: string;
   __v: number;
 }
 
@@ -51,14 +52,20 @@ const Dashboard = () => {
 
   //   fetchPrescriptions();
   // }, []);
-
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
         const response = await axios.get<Prescription[]>(
           "http://localhost:3001/prescription/"
         );
-        setPrescriptions(response.data);
+
+        // Sort the prescriptions based on the updatedAt field in descending order
+        const sortedPrescriptions = response.data.sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+
+        setPrescriptions(sortedPrescriptions);
       } catch (error) {
         console.error("Error fetching prescriptions:", error);
       }
@@ -121,8 +128,8 @@ const Dashboard = () => {
                     {formatIndianTime(prescription.createdAt)}
                   </div>
                   <div>
-                    <strong>Updated At:</strong>{" "}
-                    {formatIndianTime(prescription.updatedAt)}
+                    <strong>Confirmed Slot:</strong>{" "}
+                    {formatIndianTime(prescription.date)}
                   </div>
                 </motion.h1>
               ))}
