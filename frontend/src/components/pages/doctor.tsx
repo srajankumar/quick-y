@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { userID } from "../hooks/page";
 
 interface PatientData {
   _id: string;
@@ -31,6 +32,7 @@ const Doctor: React.FC = () => {
   const [cookies, setCookies] = useCookies(["user_role", "username"]);
   const [username, setUsername] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false); // Added state for dialog visibility
+  const userid = userID();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,13 +57,12 @@ const Doctor: React.FC = () => {
 
   const handleSendPrescription = async () => {
     try {
-      const selectedPatient = patientData[0];
-
       const response = await axios.post(
         "http://localhost:3001/prescription/prescribe",
         {
-          waitingTime: waitingTime,
-          prescriptionText: prescriptionText,
+          waitingtime: waitingTime, // Correct property name
+          prescription: prescriptionText,
+          userOwner: userid, // Make sure this property is correctly retrieved from your data
         }
       );
 

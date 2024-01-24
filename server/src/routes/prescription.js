@@ -19,25 +19,21 @@ router.post("/prescribe", async (req, res) => {
   try {
     console.log("Request Payload:", req.body);
 
-    const { waitingTime, prescription, userOwner, timestamps } = req.body;
+    const { waitingtime, prescription, userOwner } = req.body;
 
-    // Fetch the user's role from the "users" collection
+    // Fetch the user's information from the "users" collection
     const user = await UserModel.findById(userOwner);
     if (!user) {
       console.error("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Log user information
-    console.log("User:", user);
-
     // Create the Prescription with the user's role
     const appointment = new PrescriptionModel({
-      waitingTime,
+      waitingtime,
       prescription,
-      userOwner,
-      timestamps,
-      userRole: user.role, // Assuming the user model has a "role" field
+      userOwner: user._id,
+      // Assuming the user model has a "role" field
     });
 
     // Log appointment information
