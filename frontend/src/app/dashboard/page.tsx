@@ -18,12 +18,11 @@ const Page = () => {
   }, [cookies.user_role]);
 
   return (
-    <div className="my-40">
+    <div className="my-40 px-5">
       {role === "Patient" && <PatientPage />}
       {role === "Doctor" && <DoctorPage />}
       {role === "Pharmacist" && <PrescriptionList />}
       <Logout />
-      {/* Add other role-based conditions as needed */}
     </div>
   );
 };
