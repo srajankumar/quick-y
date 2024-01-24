@@ -87,7 +87,7 @@ const Dashboard = () => {
           className="text-4xl mb-5"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
-          Hello {username} 👋
+          Hello {username} <span className="wave">👋</span>
         </motion.h1>
         <Tabs defaultValue="appointments" className="w-[49rem]">
           <TabsList className="grid grid-cols-3">
