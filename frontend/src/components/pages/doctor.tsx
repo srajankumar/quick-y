@@ -28,7 +28,7 @@ const Doctor: React.FC = () => {
   const [patientData, setPatientData] = useState<PatientData[]>([]);
   const [waitingTime, setWaitingTime] = useState<number>("");
   const [prescriptionText, setPrescriptionText] = useState<string>("");
-  const [cookies, setCookies] = useCookies(["user_role"]);
+  const [cookies, setCookies] = useCookies(["user_role", "username"]);
   const [username, setUsername] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false); // Added state for dialog visibility
 
