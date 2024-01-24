@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import axios from "axios";
+import { userID } from "../hooks/page";
 
 // Your component
 const Patient = () => {
@@ -25,7 +26,7 @@ const Patient = () => {
   const [disease, setDisease] = React.useState("");
   const [age, setAge] = React.useState<number | undefined>(undefined);
   const [clinic, setClinic] = React.useState("");
-  const [userOwner, setUserOwner] = React.useState("65849134a7d019ae6a88544d"); // Set the default userOwner value
+  const userId = userID();
 
   const clinics = [
     {
@@ -42,9 +43,6 @@ const Patient = () => {
     },
   ];
 
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
-
   const handleAppointmentSubmit = async () => {
     try {
       const response = await axios.post(
@@ -54,7 +52,7 @@ const Patient = () => {
           disease,
           age,
           clinic,
-          userOwner,
+          userOwner: userId,
         }
       );
 
