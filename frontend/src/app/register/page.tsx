@@ -6,8 +6,7 @@ import Link from "next/link";
 import { SetStateAction, SyntheticEvent, useState } from "react";
 import axios from "axios";
 import React, { ChangeEvent } from "react";
-
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+import { useToast } from "@/components/ui/use-toast";
 
 // Role component for the dropdown
 interface RoleProps {
@@ -39,6 +38,8 @@ const Role: React.FC<RoleProps> = ({ selectedRole, onChange }) => {
 };
 
 export default function Register() {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
@@ -51,7 +52,7 @@ export default function Register() {
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-
+    setIsLoading(true);
     try {
       await axios.post(`http://localhost:3001/auth/register`, {
         username,
@@ -60,14 +61,36 @@ export default function Register() {
         password,
         role: selectedRole,
       });
-      alert("Registration Completed! Login to continue");
-      window.location.href = "/login";
+
+      toast({
+        title: "Registration Completed",
+        description: "Redirecting to login page.",
+        variant: "success",
+      });
+      setUsername("");
+      setPhone("");
+      setPassword("");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
     } catch (err: any) {
       if (err.response && err.response.status === 409) {
-        // User with the same name already exists, show a popup or handle accordingly
-        alert("Username already exists. Please choose a different username.");
+        toast({
+          title: "Registration Failed",
+          description:
+            "Username already exists. Please choose a different one.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
       } else {
         console.error(err);
+        toast({
+          title: "Registration Failed",
+          description:
+            "An error occurred during registration. Please try again.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
       }
     }
   };
@@ -77,11 +100,11 @@ export default function Register() {
       className="min-h-screen flex justify-center w-96 px-5 flex-col"
       onSubmit={onSubmit}
     >
-      {" "}
       <h1 className="text-2xl font-semibold">Register</h1>
       <div className="mt-3">
         <Label htmlFor="username">Username</Label>
         <Input
+          disabled={isLoading}
           className="mt-1"
           id="username"
           type="text"
@@ -94,6 +117,7 @@ export default function Register() {
       <div className="mt-3">
         <Label htmlFor="phone">Phone</Label>
         <Input
+          disabled={isLoading}
           className="mt-1"
           id="phone"
           type="number"
@@ -106,6 +130,7 @@ export default function Register() {
       <div className="mt-3">
         <Label htmlFor="password">Password</Label>
         <Input
+          disabled={isLoading}
           className="mt-1"
           id="password"
           type="password"
@@ -118,8 +143,36 @@ export default function Register() {
       {/* Include the Role component */}
       <Role selectedRole={selectedRole} onChange={onChangeRole} />
       <div>
-        <Button className="mt-3" type="submit">
+        <Button disabled={isLoading} className="mt-3 w-full" type="submit">
           Create account
+          {isLoading && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              className="ml-2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z"
+                opacity=".5"
+              />
+              <path
+                fill="currentColor"
+                d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  dur="1s"
+                  from="0 12 12"
+                  repeatCount="indefinite"
+                  to="360 12 12"
+                  type="rotate"
+                />
+              </path>
+            </svg>
+          )}
         </Button>
         <div className="text-sm space-x-1 mt-3">
           <span>Already have an account?</span>
