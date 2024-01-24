@@ -75,11 +75,11 @@ function Map({ fromLatitude, fromLongitude, toLatitude, toLongitude }) {
           }
         `}</style>
       </div>
-      {estimatedTime && (
+      {/* {estimatedTime && (
         <div className="text-lg cursor-default mt-5 font-semibold tracking-wide py-3">
           <p>Estimated Time: {formatTime(estimatedTime)}</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

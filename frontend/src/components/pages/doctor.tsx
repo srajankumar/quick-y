@@ -118,7 +118,7 @@ const Doctor: React.FC = () => {
         {patientData.map((patient) => (
           <Dialog key={patient._id}>
             <DialogTrigger asChild>
-              <div className="max-w-7xl w-full">
+              <div className="min-w-[50rem]">
                 <div className="rounded-md hover:shadow-xl shadow-md transition-all duration-300 cursor-default mr-5 mb-5 px-5 py-3">
                   <div className="flex justify-between w-full">
                     <h1 className="text-lg font-semibold">{patient.name}</h1>

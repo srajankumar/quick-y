@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import { ArrowRight } from "lucide-react";
 
-const GoogleMap = dynamic(() => import("@/components/MapRoute"), {
+const GoogleMap = dynamic(() => import("@/components/Patient/MapRoute"), {
   ssr: false,
 });
 
@@ -17,20 +18,20 @@ type RouteCoordinates = {
 
 const routeCoordinates: RouteCoordinates = {
   "Clinic 1": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.9415206,
-    toLongitude: 74.854157,
+    fromLatitude: 13.0448614,
+    fromLongitude: 74.9780658,
+    toLatitude: 12.8663104,
+    toLongitude: 74.9257591,
   },
   "Clinic 2": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
-    toLatitude: 12.8994669,
-    toLongitude: 74.8361301,
+    fromLatitude: 13.0448614,
+    fromLongitude: 74.9780658,
+    toLatitude: 12.8630325,
+    toLongitude: 74.8368375,
   },
   "Clinic 3": {
-    fromLatitude: 12.8625882,
-    fromLongitude: 74.8366402,
+    fromLatitude: 13.0448614,
+    fromLongitude: 74.9780658,
     toLatitude: 12.9029797,
     toLongitude: 74.8357253,
   },
@@ -47,7 +48,7 @@ interface Appointment {
 }
 
 interface RouteMapProps {
-  userID: string;
+  userID: string | null;
 }
 
 export default function RouteMap({ userID }: RouteMapProps) {
@@ -79,23 +80,30 @@ export default function RouteMap({ userID }: RouteMapProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center ">
-      <div>
-        <select
-          className="border border-input text-xs md:text-base bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 mb-5 mt-2"
-          onChange={(e) => handleAppointmentSelect(e.target.value)}
-          value={selectedAppointment?._id || ""}
-        >
-          {appointments.map((appointment) => (
-            <option key={appointment._id} value={appointment._id}>
-              {appointment.name} - {appointment.clinic}
+    <div className="flex flex-col justify-center ">
+      <div className="flex justify-between items-center py-5">
+        <div className="flex justify-start items-center gap-3 cursor-default text-2xl font-semibold rounded-t-md tracking-wide">
+          {/* <div>{selectedAppointment?.name}</div> */}
+          <div>Your Location</div>
+          <ArrowRight />
+          <div>{selectedAppointment?.clinic}</div>
+        </div>
+        <div>
+          <select
+            className="border border-input text-xs md:text-base bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2"
+            onChange={(e) => handleAppointmentSelect(e.target.value)}
+            value={selectedAppointment?._id || ""}
+          >
+            <option value="" disabled>
+              Select Clinic
             </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex justify-between cursor-default text-2xl font-semibold py-3 rounded-t-md tracking-wide mt-5">
-        <div>{selectedAppointment?.name}</div>
-        <div>{selectedAppointment?.clinic}</div>
+            {appointments.map((appointment) => (
+              <option key={appointment._id} value={appointment._id}>
+                {appointment.name} - {appointment.clinic}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {selectedAppointment && (
@@ -110,10 +118,6 @@ export default function RouteMap({ userID }: RouteMapProps) {
           toLongitude={routeCoordinates[selectedAppointment.clinic].toLongitude}
         />
       )}
-
-      <div className="cursor-default text-lg font-semibold tracking-wide py-3">
-        <p>Waiting Time: 05:00 mins</p>
-      </div>
     </div>
   );
 }

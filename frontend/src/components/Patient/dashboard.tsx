@@ -8,7 +8,7 @@ import { motion, useInView } from "framer-motion";
 import { useGetUsername } from "@/hooks/useGetUsername";
 import { useGetUserID } from "@/hooks/useGetUserID";
 import Navbar from "./Navbar";
-
+import Route from "@/components/Patient/Route";
 interface Prescription {
   _id: string;
   waitingtime: number;
@@ -20,11 +20,12 @@ interface Prescription {
 }
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Patient from "./book-appointment";
 
 const userID = useGetUserID();
 const username = useGetUsername();
 
-const PrescriptionList = () => {
+const Dashboard = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref) as boolean;
 
@@ -88,20 +89,23 @@ const PrescriptionList = () => {
         >
           Hello {username} 👋
         </motion.h1>
-        <Tabs defaultValue="prescriptions">
-          <TabsList className="grid w-[49rem] grid-cols-2">
+        <Tabs defaultValue="appointments" className="w-[49rem]">
+          <TabsList className="grid grid-cols-3">
+            <TabsTrigger value="appointments">Book an Appointment</TabsTrigger>
             <TabsTrigger value="prescriptions">Your Prescriptions</TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
+            <TabsTrigger value="map">Route Map</TabsTrigger>
           </TabsList>
-          <TabsContent value="password">hello world</TabsContent>
+          <TabsContent value="appointments">
+            <Patient />
+          </TabsContent>
           <TabsContent value="prescriptions">
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid mt-4 grid-cols-2 gap-5">
               {prescriptions.map((prescription, index) => (
                 <motion.h1
                   key={prescription._id}
                   variants={FADE_DOWN_ANIMATION_VARIANTS}
                   initial="hidden"
-                  className="bg-green-400 rounded-xl p-5 w-96"
+                  className="bg-green-100 rounded-xl p-5 w-96 hover:shadow-lg transition-colors duration-200 cursor-pointer"
                   animate={isInView ? "show" : "hidden"}
                   transition={{ delay: index * 10000 }}
                 >
@@ -124,10 +128,13 @@ const PrescriptionList = () => {
               ))}
             </div>
           </TabsContent>
+          <TabsContent value="map">
+            <Route userID={userID} />
+          </TabsContent>
         </Tabs>
       </motion.div>
     </div>
   );
 };
 
-export default PrescriptionList;
+export default Dashboard;

@@ -13,6 +13,17 @@ interface PrescriptionData {
   __v: number;
 }
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Download } from "lucide-react";
+
 const PrescriptionList: React.FC = () => {
   const [prescriptions, setPrescriptions] = useState<PrescriptionData[]>([]);
 
@@ -54,45 +65,41 @@ const PrescriptionList: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold my-5">Prescriptions</h2>
-      <table style={{ textAlign: "left" }}>
-        <thead>
-          <tr className="bg-primary/90 text-white tracking-wider text-lg">
-            <th className="pl-5 rounded-tl-xl py-3 border-r-2">ID</th>
-            <th className="pl-5 py-3 border-r-2">Prescription</th>
-            <th className="pl-5 py-3 border-r-2">Waiting Time</th>
-            <th className="pl-5 py-3 border-r-2">Updated At</th>
-            <th className="pl-5 rounded-tr-xl py-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="text-lg">
+        <TableCaption className="text-base">
+          A list of your recent invoices.
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Prescription ID</TableHead>
+            <TableHead>Prescription</TableHead>
+            <TableHead>Waiting Time</TableHead>
+            <TableHead className="w-64">Updated At</TableHead>
+            <TableHead>Download Invoice</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {reversedUpdatedPrescriptions.map((prescription) => (
-            <tr
-              className="hover:shadow-2xl rounded-xl transition-all duration-300 cursor-default"
-              key={prescription._id}
-            >
-              <td className="border-r-2 pl-5 pr-10 py-10">
-                {prescription._id}
-              </td>
-              <td className="border-r-2 pl-5 pr-10 py-10">
-                {prescription.prescription}
-              </td>
-              <td className="border-r-2 pl-5 pr-10 py-10">
-                {prescription.waitingtime} minutes
-              </td>
-              <td className="border-r-2 pl-5 pr-10 py-10">
+            <TableRow key={prescription._id} className="hover:shadow-xl">
+              <TableCell className="font-medium">{prescription._id}</TableCell>
+              <TableCell>{prescription.prescription}</TableCell>
+              <TableCell>{prescription.waitingtime} minutes</TableCell>
+              <TableCell>
                 {new Date(prescription.updatedAt || "").toLocaleString() ||
                   "N/A"}
-              </td>
-              <td className="pl-5 pr-10 py-10">
-                <Button onClick={() => downloadRow(prescription)}>
-                  Download Row
+              </TableCell>
+              <TableCell>
+                <Button
+                  className="w-full"
+                  onClick={() => downloadRow(prescription)}
+                >
+                  <Download className="w-5 h-5" />
                 </Button>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };

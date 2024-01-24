@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const Login = () => {
   return (
-    <div className="fixed flex top-5 right-5">
-      <div className="flex gap-5 min-w-4xl">
+    <div className="flex top-5 right-5">
+      <div className="flex gap-5">
         <Link href="/register">
           <Button variant={"ghost"}>Sign Up</Button>
         </Link>

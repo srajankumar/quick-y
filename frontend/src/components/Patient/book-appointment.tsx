@@ -7,6 +7,7 @@ import axios from "axios";
 import { userID } from "../hooks/page";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { Textarea } from "../ui/textarea";
 
 const Patient = () => {
   const { toast } = useToast();
@@ -75,10 +76,7 @@ const Patient = () => {
       <form>
         <div className="space-y-12">
           <div className="pb-2">
-            <h2 className="text-3xl font-bold leading-7 text-gray-900">
-              Book an Appointment
-            </h2>
-            <div className="mt-10 grid gap-x-6 gap-y-8 grid-cols-6">
+            <div className="mt-5 grid gap-x-6 gap-y-5 grid-cols-6">
               <div className="col-span-full">
                 <label
                   htmlFor="name"
@@ -103,9 +101,9 @@ const Patient = () => {
                   Disease
                 </label>
                 <div className="mt-2">
-                  <Input
+                  <Textarea
+                    className="h-36"
                     disabled={isLoading}
-                    type="text"
                     value={disease}
                     onChange={(e) => setDisease(e.target.value)}
                   />

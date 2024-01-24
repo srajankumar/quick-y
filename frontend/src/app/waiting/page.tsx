@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Logout from "@/components/Logout";
-import Route from "@/components/Route";
+import Route from "@/components/Patient/Route";
 
 // Import statements...
 
@@ -22,7 +22,7 @@ const Waiting = () => {
     <div>
       <Logout />
       {/* Pass the userID as a prop to the Route component */}
-      <Route userID={userID} />
+      {/* <Route userID={userID} /> */}
     </div>
   );
 };

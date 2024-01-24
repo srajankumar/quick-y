@@ -1,4 +1,4 @@
-import Patient from "@/components/pages/book-appointment";
+import Patient from "@/components/Patient/book-appointment";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
