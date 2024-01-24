@@ -56,9 +56,10 @@ const Patient = () => {
       setDisease("");
       setAge("");
       setClinic("");
-      setTimeout(() => {
-        window.location.href = "/waiting";
-      }, 1000);
+      setIsLoading(false);
+      // setTimeout(() => {
+      //   window.location.href = "/waiting";
+      // }, 1000);
     } catch (error) {
       console.error(error);
       toast({
