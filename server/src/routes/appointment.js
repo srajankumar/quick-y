@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 
 router.post("/create-appointment", async (req, res) => {
   try {
-    const { name, disease, age, clinic, userOwner } = req.body;
+    const { name, disease, age, clinic, sent, userOwner } = req.body;
 
     // Fetch the user's role from the "users" collection
     const user = await UserModel.findById(userOwner);
@@ -44,6 +44,7 @@ router.post("/create-appointment", async (req, res) => {
       age,
       clinic,
       userOwner,
+      sent,
       userRole: user.user_role, // Assuming the user model has a "role" field
     });
 

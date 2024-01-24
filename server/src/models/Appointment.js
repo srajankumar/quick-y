@@ -9,6 +9,7 @@ const AppointmentSchema = new mongoose.Schema({
   disease: { type: String, required: true },
   age: { type: String, required: true },
   clinic: { type: String, required: true },
+  sent: { type: String },
 
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
