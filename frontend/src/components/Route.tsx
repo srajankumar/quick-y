@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import Cookies from "js-cookie";
 
 const GoogleMap = dynamic(() => import("@/components/MapRoute"), {
   ssr: false,

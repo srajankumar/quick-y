@@ -11,13 +11,13 @@ import Login from "./Login";
 
 const ShuffleHero: React.FC = () => {
   return (
-    <section className="w-full min-h-screen px-5 py-12 grid grid-cols-1 items-center gap-8 max-w-6xl mx-auto">
+    <section className="w-full min-h-screen px-5 py-12 grid lg:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
       <div>
         <Login />
         <span className="block mb-4 text-lg font-bold text-primary">
           Quick-y
         </span>
-        <h3 className="text-4xl md:text-6xl font-semibold">
+        <h3 className="text-4xl md:text-5xl font-semibold">
           Time-Efficient Healthcare
         </h3>
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
@@ -38,7 +38,9 @@ const ShuffleHero: React.FC = () => {
           </Link>
         </div>
       </div>
-      {/* <ShuffleGrid /> */}
+      <div className="lg:grid hidden">
+        <ShuffleGrid />
+      </div>
     </section>
   );
 };

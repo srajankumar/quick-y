@@ -27,7 +27,7 @@ interface PatientData {
 
 const Doctor: React.FC = () => {
   const [patientData, setPatientData] = useState<PatientData[]>([]);
-  const [waitingTime, setWaitingTime] = useState<number>();
+  const [waitingTime, setWaitingTime] = useState<string>("");
   const [prescriptionText, setPrescriptionText] = useState<string>("");
   const [cookies, setCookies] = useCookies(["user_role", "username"]);
   const [username, setUsername] = useState("");
@@ -70,7 +70,7 @@ const Doctor: React.FC = () => {
 
       alert("Prescription sent successfully");
 
-      setWaitingTime(0);
+      setWaitingTime("");
       setPrescriptionText("");
     } catch (error) {
       console.error("Error sending prescription:", error);
@@ -116,7 +116,7 @@ const Doctor: React.FC = () => {
                 placeholder="Waiting time (minutes)"
                 className="mb-0"
                 value={waitingTime}
-                onChange={(e) => setWaitingTime(Number(e.target.value))}
+                onChange={(e) => setWaitingTime(e.target.value)}
               />
               <Textarea
                 placeholder="Add prescription"

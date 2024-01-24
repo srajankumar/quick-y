@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import Back from "@/components/Home/Back";
 
 function App() {
   const { toast } = useToast();
@@ -72,6 +73,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex justify-center items-center flex-col">
+      <Back />
       <h1 className="font-bold text-3xl ">Disease Prediction</h1>
 
       <div className="flex items-center p-5 justify-center w-96">
