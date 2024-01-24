@@ -42,14 +42,22 @@ const Doctor: React.FC = () => {
     useState<string>("");
   const userid = userID();
 
+  const invalid = "2023-12-31T18:30:00.000Z";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<PatientData[]>(
           "http://localhost:3001/appointment"
         );
-        console.log("Server Response:", response.data);
-        setPatientData(response.data);
+
+        // Sort the patientData based on the fromDate property
+        const sortedPatientData = response.data.sort(
+          (a, b) =>
+            new Date(a.fromDate).getTime() - new Date(b.fromDate).getTime()
+        );
+
+        setPatientData(sortedPatientData);
       } catch (error) {
         console.error("Error fetching patient data:", error);
       }
@@ -165,7 +173,13 @@ const Doctor: React.FC = () => {
                 {patientData.map((patient) => (
                   <Dialog key={patient._id}>
                     <DialogTrigger asChild>
-                      <div className="flex justify-between items-center bg-green-100 rounded-xl p-5 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                      <div
+                        className={`flex justify-between items-center rounded-xl p-5 hover:shadow-lg transition-all duration-300 cursor-pointer ${
+                          patient.fromDate === invalid
+                            ? "bg-red-200"
+                            : "bg-green-100"
+                        }`}
+                      >
                         <div>
                           <div className="flex justify-between w-full">
                             <h1 className="text-lg font-semibold">
