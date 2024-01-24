@@ -117,12 +117,14 @@ const Dashboard = () => {
                   transition={{ delay: index * 10000 }}
                 >
                   <div>
+                    <strong>Token Number:</strong> {prescription._id}
+                  </div>
+                  <div>
                     <strong>Waiting Time:</strong> {prescription.waitingtime}
                   </div>
                   <div>
                     <strong>Prescription:</strong> {prescription.prescription}
                   </div>
-                  {/* Hide User ID */}
                   <div>
                     <strong>Created At:</strong>{" "}
                     {formatIndianTime(prescription.createdAt)}
