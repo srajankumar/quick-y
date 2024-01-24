@@ -44,7 +44,7 @@ router.post("/create-appointment", async (req, res) => {
       age,
       clinic,
       userOwner,
-      userRole: user.role, // Assuming the user model has a "role" field
+      userRole: user.user_role, // Assuming the user model has a "role" field
     });
 
     await appointment.save();
