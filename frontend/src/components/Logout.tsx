@@ -4,19 +4,27 @@ import { useRouter } from "next/router";
 import { Button } from "./ui/button";
 
 const Logout = () => {
-  const [cookies, setCookies, removeCookie] = useCookies(["role"]);
+  const [cookies, setCookies, removeCookie] = useCookies([
+    "user_role",
+    "access_token",
+    "username",
+  ]);
   const [role, setRole] = useState("");
   //   const router = useRouter();
 
   useEffect(() => {
     // Fetch the role from cookies
-    const storedRole = cookies.role;
+    const storedRole = cookies.user_role;
     setRole(storedRole);
-  }, [cookies.role]);
+  }, [cookies.user_role]);
 
   const handleLogout = () => {
-    // Clear the role cookie
-    removeCookie("role", { path: "/" });
+    window.localStorage.removeItem("userID");
+
+    // Clear the token, username, and role cookies
+    removeCookie("access_token", { path: "/" });
+    removeCookie("username", { path: "/" });
+    removeCookie("user_role", { path: "/" });
 
     // Redirect to "/"
     window.location.href = "/";
