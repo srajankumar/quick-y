@@ -20,6 +20,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^3.0.5",
+    "dotenv": "^16.4.0",
     "framer-motion": "^10.16.16",
     "js-cookie": "^3.0.5",
     "leaflet": "^1.9.4",
@@ -31,7 +32,8 @@
     "react-day-picker": "^8.9.1",
     "react-dom": "^18",
     "tailwind-merge": "^2.1.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "twilio": "^4.20.1"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { userID } from "../hooks/page";
-
+import { sendSMS } from "../SendSMS.js";
 interface PatientData {
   _id: string;
   name: string;
@@ -67,7 +67,9 @@ const Doctor: React.FC = () => {
       );
 
       console.log("Prescription sent successfully:", response.data);
-
+      sendSMS(
+        "Your Prescription/Appointment has been updated. Please check Quick-y for more information"
+      );
       alert("Prescription sent successfully");
 
       setWaitingTime("");
