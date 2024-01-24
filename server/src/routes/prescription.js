@@ -2,6 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import { UserModel } from "../models/users.js";
 import { PrescriptionModel } from "../models/Prescription.js";
+// const SendSMS = require("../SendSMS.js");
+// require("dotenv").config();
+import twilio from "twilio";
 
 const router = express.Router();
 export { router as prescriptionRouter };
@@ -40,8 +43,30 @@ router.post("/prescribe", async (req, res) => {
     console.log("Appointment:", appointment);
 
     await appointment.save();
+    // const accountSID = process.env.AccountSID;
+    // const authTOKEN = process.env.authTOKEN;
+    // const client = twilio(accountSID, authTOKEN);
+    // console.log("Prescription Uploaded successfully!");
+    // const sendSMS = async (body) => {
+    //   let msgOptions = {
+    //     from: process.env.TwilioNum,
+    //     to: process.env.MyNumber,
+    //     body,
+    //   };
 
-    console.log("Prescription Uploaded successfully!");
+    //   try {
+    //     // Twilio SMS sending logic
+    //     await client.messages.create(msgOptions);
+    //     console.log("SMS sent successfully!");
+    //   } catch (error) {
+    //     console.error("Error sending SMS:", error);
+    //   }
+
+    //   // Additional logic related to SMS sending (if any)
+    // };
+    // sendSMS(
+    //   "Your Prescription/Appointment has been updated. Please check Quick-y for more information"
+    // );
 
     res.status(201).json({ message: "Prescription Uploaded successfully!" });
   } catch (error) {

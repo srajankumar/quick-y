@@ -14,7 +14,6 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { userID } from "../hooks/page";
-import { sendSMS } from "../SendSMS.js";
 interface PatientData {
   _id: string;
   name: string;
@@ -69,22 +68,6 @@ const Doctor: React.FC = () => {
       );
 
       console.log("Prescription sent successfully:", prescriptionResponse.data);
-
-      // Update appointment
-      const appointmentResponse = await axios.post(
-        "http://localhost:3001/appointment/update-appointment",
-        {
-          _id: patient._id, // Assuming this is the appointment ID
-          sent: true, // Add the sent attribute
-        }
-      );
-
-      console.log(
-        "Appointment updated successfully:",
-        appointmentResponse.data
-      );
-
-      alert("Prescription sent successfully");
 
       setWaitingTime("");
       setPrescriptionText("");
