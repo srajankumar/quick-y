@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 import tensorflow as tf
 
 
-model=load_model('skin_disease.h5')
+model=load_model('new_model.h5')
 class_name=['Enfeksiyonel', 'Ekzama', 'Akne', 'Pigment', 'Benign', 'Malign']
 st.title('skin detection')
 st.markdown('upload an image of the skin')
