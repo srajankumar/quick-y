@@ -10,11 +10,9 @@ const PrescriptionSchema = new mongoose.Schema(
   {
     waitingtime: {
       type: Number,
-      required: [true, "Waiting time is required"],
     },
     prescription: {
       type: String,
-      required: [true, "Prescription text is required"],
     },
     date: {
       type: String,

@@ -79,25 +79,30 @@ const PrescriptionList: React.FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {reversedUpdatedPrescriptions.map((prescription) => (
-            <TableRow key={prescription._id} className="hover:shadow-xl">
-              <TableCell className="font-medium">{prescription._id}</TableCell>
-              <TableCell>{prescription.prescription}</TableCell>
-              <TableCell>{prescription.waitingtime} minutes</TableCell>
-              <TableCell>
-                {new Date(prescription.updatedAt || "").toLocaleString() ||
-                  "N/A"}
-              </TableCell>
-              <TableCell>
-                <Button
-                  className="w-full"
-                  onClick={() => downloadRow(prescription)}
-                >
-                  <Download className="w-5 h-5" />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {reversedUpdatedPrescriptions.map(
+            (prescription) =>
+              prescription.prescription && (
+                <TableRow key={prescription._id} className="hover:shadow-xl">
+                  <TableCell className="font-medium">
+                    {prescription._id}
+                  </TableCell>
+                  <TableCell>{prescription.prescription}</TableCell>
+                  <TableCell>{prescription.waitingtime} minutes</TableCell>
+                  <TableCell>
+                    {new Date(prescription.updatedAt || "").toLocaleString() ||
+                      "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      className="w-full"
+                      onClick={() => downloadRow(prescription)}
+                    >
+                      <Download className="w-5 h-5" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )
+          )}
         </TableBody>
       </Table>
     </div>
