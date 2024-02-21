@@ -185,7 +185,7 @@ const Doctor: React.FC = () => {
                               {patient.name}
                             </h1>
                           </div>
-                          <p className="text-muted-foreground">
+                          <p className="text-muted-foreground w-full">
                             {patient.disease}
                           </p>
                         </div>

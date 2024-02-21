@@ -23,12 +23,12 @@ interface Prescription {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Patient from "./book-appointment";
 
-const userID = useGetUserID();
-const username = useGetUsername();
-
 const Dashboard = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref) as boolean;
+
+  const userID = useGetUserID();
+  const username = useGetUsername();
 
   const FADE_DOWN_ANIMATION_VARIANTS = {
     hidden: { opacity: 0, y: -10 },

@@ -12,7 +12,6 @@ const Navbar = () => {
     "username",
   ]);
   const [role, setRole] = useState("");
-  //   const router = useRouter();
 
   useEffect(() => {
     // Fetch the role from cookies
@@ -20,26 +19,24 @@ const Navbar = () => {
     setRole(storedRole);
   }, [cookies.user_role]);
 
-  const handleLogout = () => {
-    window.localStorage.removeItem("userID");
-
-    // Clear the token, username, and role cookies
-    removeCookie("access_token", { path: "/" });
-    removeCookie("username", { path: "/" });
-    removeCookie("user_role", { path: "/" });
-
-    // Redirect to "/"
-    window.location.href = "/";
-  };
   return (
-    <div className="fixed bg-white/50 backdrop-blur-md top-0 p-5 w-full flex justify-center left-0">
+    <div className="fixed bg-white/50 backdrop-blur-md top-0 p-5 w-full flex justify-center left-0 z-50 bg-white">
       <div className="flex max-w-6xl w-full justify-between items-center">
-        <Link
-          href="/dashboard"
-          className="text-xl font-bold text-primary hover:scale-105 transition-all duration-200"
-        >
-          Quick-y
-        </Link>
+        {role ? (
+          <Link
+            href="/dashboard"
+            className="text-xl font-bold text-primary hover:scale-105 transition-all duration-200"
+          >
+            Quick-y
+          </Link>
+        ) : (
+          <Link
+            href="/"
+            className="text-xl font-bold text-primary hover:scale-105 transition-all duration-200"
+          >
+            Quick-y
+          </Link>
+        )}
         <Login />
       </div>
     </div>

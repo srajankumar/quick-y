@@ -9,8 +9,8 @@ interface Square {
   src: string;
 }
 import Link from "next/link";
-import Login from "./Login";
-import Navbar from "./Navbar";
+import Login from "../Login";
+import Navbar from "../Navbar";
 
 const ShuffleHero: React.FC = () => {
   const ref = React.useRef(null);
@@ -26,7 +26,7 @@ const ShuffleHero: React.FC = () => {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
   return (
-    <section className="w-full min-h-screen px-5 md:px-0 py-12 grid lg:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
+    <section className="w-full min-h-screen px-5 py-12 grid lg:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
       <motion.div
         initial="hidden"
         className="max-w-2xl"
@@ -43,23 +43,26 @@ const ShuffleHero: React.FC = () => {
         }}
       >
         <Navbar />
-        <motion.h1
+        {/* <motion.h1
           className="block mb-4 text-lg font-bold text-primary"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
           Quick-y
-        </motion.h1>
+        </motion.h1> */}
         <motion.h1
           className="text-4xl md:text-5xl font-semibold"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
           Time-Efficient Healthcare
         </motion.h1>
-        <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
+        <motion.h1
+          className="text-base md:text-lg text-slate-700 my-4 md:my-6"
+          variants={FADE_DOWN_ANIMATION_VARIANTS}
+        >
           Revolutionizing healthcare with real-time mapping, streamlined
           prescriptions, and skin/normal disease detection, minimizing wait
           times for patients and doctors.
-        </p>
+        </motion.h1>
 
         <motion.h1
           className="flex flex-wrap"
