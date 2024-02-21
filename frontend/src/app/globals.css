@@ -92,3 +92,23 @@
     transform: rotate(0deg);
   }
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  /* border-radius: 10px; */
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  /* border-radius: 10px; */
+  background: #2563eb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a46a5;
+}

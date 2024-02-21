@@ -20,7 +20,7 @@ const Navbar = () => {
   }, [cookies.user_role]);
 
   return (
-    <div className="fixed bg-white/50 backdrop-blur-md top-0 p-5 w-full flex justify-center left-0 z-50 bg-white">
+    <div className="fixed backdrop-blur-md top-0 p-5 w-full flex justify-center left-0 z-50 bg-white">
       <div className="flex max-w-6xl w-full justify-between items-center">
         {role ? (
           <Link
