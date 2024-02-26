@@ -6,6 +6,7 @@ import Map from "@/components/Main/Map";
 import Prescribe from "@/components/Main/Prescribe";
 import Scan from "@/components/Main/Scan";
 import Footer from "@/components/Footer";
+import Team from "@/components/Main/Team";
 export default function Home() {
   return (
     <main>
@@ -14,6 +15,7 @@ export default function Home() {
       <Book />
       <Map />
       <Prescribe />
+      {/* <Team /> */}
       <Footer />
     </main>
   );
