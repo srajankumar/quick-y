@@ -2,8 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import { UserModel } from "../models/users.js";
 import { PrescriptionModel } from "../models/Prescription.js";
-// const SendSMS = require("../SendSMS.js");
-// require("dotenv").config();
+
+// import dotenv from "dotenv";
+// dotenv.config();
 import twilio from "twilio";
 
 const router = express.Router();

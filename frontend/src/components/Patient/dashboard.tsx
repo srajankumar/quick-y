@@ -99,7 +99,9 @@ const Dashboard = () => {
         <Tabs defaultValue="appointments" className="w-[49rem]">
           <TabsList className="grid grid-cols-3">
             <TabsTrigger value="appointments">Book an Appointment</TabsTrigger>
-            <TabsTrigger value="prescriptions">Your Prescriptions</TabsTrigger>
+            <TabsTrigger value="prescriptions">
+              Your Prescriptions / Waiting Time
+            </TabsTrigger>
             <TabsTrigger value="map">Route Map</TabsTrigger>
           </TabsList>
           <TabsContent value="appointments">
