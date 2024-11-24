@@ -10,9 +10,19 @@ dotenv.config();
 
 const app = express();
 
-// Use middleware to handle JSON data and CORS
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://quick-y.vercel.app"],
+  methods: "*",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+app.get("/", (req, res) => {
+  res.send("Hello Quick-y Developer!");
+});
 
 app.use("/auth", userRouter); // Authentication-related routes
 app.use("/appointment", appointmentRouter); // Authentication-related routes

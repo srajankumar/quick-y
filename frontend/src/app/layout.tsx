@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
 import { Toaster } from "@/components/ui/toaster";
+import Loading from "@/components/Loading";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <Loading />
         <div className="flex flex-col justify-center items-center">
           <div className="max-w-6xl">{children}</div>
         </div>
