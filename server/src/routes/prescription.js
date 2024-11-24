@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { UserModel } from "../models/users.js";
+import { UserModel } from "../models/Users.js";
 import { PrescriptionModel } from "../models/Prescription.js";
 
 // import dotenv from "dotenv";
