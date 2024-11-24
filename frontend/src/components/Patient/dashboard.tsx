@@ -23,6 +23,8 @@ interface Prescription {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Patient from "./book-appointment";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const Dashboard = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref) as boolean;
@@ -37,29 +39,13 @@ const Dashboard = () => {
 
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
 
-  // useEffect(() => {
-  //   const fetchPrescriptions = async () => {
-  //     try {
-  //       const response = await axios.get<Prescription[]>(
-  //         `http://localhost:3001/prescription/${userID}`
-  //       );
-
-  //       setPrescriptions(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching prescriptions:", error);
-  //     }
-  //   };
-
-  //   fetchPrescriptions();
-  // }, []);
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
         const response = await axios.get<Prescription[]>(
-          "http://localhost:3001/prescription/"
+          `${serverUrl}/prescription/`
         );
 
-        // Sort the prescriptions based on the updatedAt field in descending order
         const sortedPrescriptions = response.data.sort(
           (a, b) =>
             new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()

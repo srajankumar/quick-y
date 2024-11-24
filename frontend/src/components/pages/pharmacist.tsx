@@ -1,4 +1,3 @@
-// Import necessary modules and components
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "../ui/button";
@@ -24,6 +23,8 @@ import {
 } from "@/components/ui/table";
 import { Download } from "lucide-react";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const PrescriptionList: React.FC = () => {
   const [prescriptions, setPrescriptions] = useState<PrescriptionData[]>([]);
 
@@ -31,7 +32,7 @@ const PrescriptionList: React.FC = () => {
     const fetchPrescriptions = async () => {
       try {
         const response = await axios.get<PrescriptionData[]>(
-          "http://localhost:3001/prescription"
+          `${serverUrl}/prescription`
         );
         console.log("Prescription Data:", response.data);
         setPrescriptions(response.data);

@@ -51,6 +51,8 @@ interface RouteMapProps {
   userID: string | null;
 }
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export default function RouteMap({ userID }: RouteMapProps) {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedAppointment, setSelectedAppointment] =
@@ -61,7 +63,7 @@ export default function RouteMap({ userID }: RouteMapProps) {
       try {
         // Fetch appointments based on the logged-in userID
         const response = await axios.get(
-          `http://localhost:3001/appointment?userOwner=${userID}`
+          `${serverUrl}/appointment?userOwner=${userID}`
         );
         setAppointments(response.data);
       } catch (err) {

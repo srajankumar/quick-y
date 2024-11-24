@@ -8,7 +8,7 @@ import { SyntheticEvent, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useToast } from "@/components/ui/use-toast";
 
-// const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function Login() {
   const { toast } = useToast();
@@ -23,7 +23,7 @@ export default function Login() {
     setCookies("username", username);
     console.log("API request sent!");
     try {
-      const response = await axios.post(`http://localhost:3001/auth/login`, {
+      const response = await axios.post(`${serverUrl}/auth/login`, {
         username,
         password,
       });

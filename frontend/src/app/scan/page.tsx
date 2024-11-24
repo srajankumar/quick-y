@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import Back from "@/components/Home/Back";
 import Navbar from "@/components/Navbar";
 
 function App() {
@@ -17,10 +16,8 @@ function App() {
   const handleFileChange = (event: any) => {
     const selectedFile = event.target.files[0];
 
-    // Set the selected file
     setFile(selectedFile);
 
-    // Create a preview for the selected image
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
@@ -74,7 +71,6 @@ function App() {
 
   return (
     <div className="min-h-screen flex justify-center items-center flex-col">
-      {/* <Back /> */}
       <Navbar />
       <h1 className="font-bold text-3xl ">Disease Prediction</h1>
 

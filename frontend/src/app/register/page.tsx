@@ -8,9 +8,11 @@ import axios from "axios";
 import React, { ChangeEvent } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 // Role component for the dropdown
 interface RoleProps {
-  selectedRole: string; // replace 'string' with the actual type of selectedRole
+  selectedRole: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 const Role: React.FC<RoleProps> = ({ selectedRole, onChange }) => {
@@ -54,7 +56,7 @@ export default function Register() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post(`http://localhost:3001/auth/register`, {
+      await axios.post(`${serverUrl}/auth/register`, {
         username,
         phone,
         email,

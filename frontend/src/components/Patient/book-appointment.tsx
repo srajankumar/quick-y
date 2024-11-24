@@ -11,6 +11,8 @@ import { Textarea } from "../ui/textarea";
 import CalendarDateRangePicker from "../ui/date-range-picker";
 import { DateRange } from "react-day-picker";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const Patient = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -44,7 +46,7 @@ const Patient = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/appointment/create-appointment",
+        `${serverUrl}/appointment/create-appointment`,
         {
           name,
           disease,

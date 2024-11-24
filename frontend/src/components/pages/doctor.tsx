@@ -30,6 +30,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { motion, useInView } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const Doctor: React.FC = () => {
   const { toast } = useToast();
   const [patientData, setPatientData] = useState<PatientData[]>([]);
@@ -48,7 +50,7 @@ const Doctor: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<PatientData[]>(
-          "http://localhost:3001/appointment"
+          `${serverUrl}/appointment`
         );
 
         // Sort the patientData based on the fromDate property
@@ -75,7 +77,7 @@ const Doctor: React.FC = () => {
     try {
       // Send prescription with selected date
       const prescriptionResponse = await axios.post(
-        "http://localhost:3001/prescription/prescribe",
+        `${serverUrl}/prescription/prescribe`,
         {
           waitingtime: waitingTime,
           prescription: prescriptionText,
