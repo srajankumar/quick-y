@@ -13,7 +13,11 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://quick-y.vercel.app"],
+  origin: [
+    "http://localhost:3000",
+    "https://quick-y.vercel.app",
+    "https://renderup.vercel.app",
+  ],
   methods: "*",
   credentials: true,
 };
