@@ -16,7 +16,8 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "https://quick-y.vercel.app",
-    "https://renderup.vercel.app",
+    "https://srajan.vercel.app",
+    "https://srajan.tech",
   ],
   methods: "*",
   credentials: true,
